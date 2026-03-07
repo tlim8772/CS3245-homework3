@@ -6,8 +6,9 @@ import itertools
 import math
 import pickle
 
-# documents_length: maps file name to the vector length
-# document_frequency: maps word to document frequency
+# doc_lens: maps file name to the vector length
+# doc_freqs: maps word to document frequency
+# get total number of documents from doc_freqs
 def index_helper(in_dir: str, out_dict: str, out_postings: str):
     doc_lens: dict[str, float] = {}
     doc_freqs: Counter[str] = Counter()
@@ -48,9 +49,7 @@ def index_helper(in_dir: str, out_dict: str, out_postings: str):
             postings_f.write(byte_obj)
             offset_dict[word] = offset
             offset += len(byte_obj)
-        pickle.dump(offset_dict, dict_f)
-
-            
+        pickle.dump(offset_dict, dict_f) 
 
 
         

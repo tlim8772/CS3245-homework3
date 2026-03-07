@@ -3,6 +3,7 @@ import re
 import nltk
 import sys
 import getopt
+from src.query import *
 
 def usage():
     print("usage: " + sys.argv[0] + " -d dictionary-file -p postings-file -q file-of-queries -o output-file-of-results")
@@ -13,8 +14,13 @@ def run_search(dict_file, postings_file, queries_file, results_file):
     perform searching on the given queries file and output the results to a file
     """
     print('running search on the queries...')
-    # This is an empty method
-    # Pls implement your code in below
+    doc_lens, doc_freqs, offset_dict = get_doclens_docfreqs_offsetdict(dict_file)
+    with open(queries_file, 'r') as qf, open(results_file, 'w') as rf, open(postings_file, 'rb') as pf:
+        for line in qf:
+            lst = eval(line, doc_lens, doc_freqs, offset_dict, pf)
+            s = ' '.join(lst)
+            rf.write(s)
+            rf.write('\n')
 
 dictionary_file = postings_file = file_of_queries = output_file_of_results = None
 
