@@ -22,13 +22,13 @@ class Test(unittest.TestCase):
             doc_lens = pickle.load(d)
             doc_freqs = pickle.load(d)
             doc_offsets = pickle.load(d)
-            self.assertEqual(doc_lens, {'0': math.sqrt(3), '1':math.sqrt(3), '2':math.sqrt(3), '3': math.sqrt(3)})
+            self.assertEqual(doc_lens, {0: math.sqrt(3), 1:math.sqrt(3), 2:math.sqrt(3), 3: math.sqrt(3)})
             self.assertEqual(doc_freqs, {'a': 4, 'b': 4, 'c': 4})
 
             offset = doc_offsets['b']
             p.seek(offset)
             lst = pickle.load(p)
-            self.assertEqual(set(lst), set([('0', 1.0), ('1', 1.0), ('2', 1.0), ('3', 1.0)]))
+            self.assertEqual(set(lst), set([(0, 1.0), (1, 1.0), (2, 1.0), (3, 1.0)]))
 
         shutil.rmtree(in_dir)
         os.remove(out_dict)

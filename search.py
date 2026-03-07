@@ -18,7 +18,7 @@ def run_search(dict_file, postings_file, queries_file, results_file):
     with open(queries_file, 'r') as qf, open(results_file, 'w') as rf, open(postings_file, 'rb') as pf:
         for line in qf:
             lst = eval(line, doc_lens, doc_freqs, offset_dict, pf)
-            s = ' '.join(lst)
+            s = ' '.join(map(lambda doc_id: str(doc_id), lst))
             rf.write(s)
             rf.write('\n')
 

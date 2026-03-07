@@ -10,9 +10,9 @@ import pickle
 # doc_freqs: maps word to document frequency
 # get total number of documents from doc_freqs
 def index_helper(in_dir: str, out_dict: str, out_postings: str):
-    doc_lens: dict[str, float] = {}
+    doc_lens: dict[int, float] = {}
     doc_freqs: Counter[str] = Counter()
-    postings: dict[str, list[tuple[str,float]]] = {}
+    postings: dict[str, list[tuple[int,float]]] = {}
     stemmer = nltk.stem.PorterStemmer()
 
     for path in Path(in_dir).iterdir():
@@ -20,6 +20,7 @@ def index_helper(in_dir: str, out_dict: str, out_postings: str):
             continue
         
         with path.open('r') as f:
+            doc_id = int(path.name)
             counter: Counter[str] = Counter()
             text = f.read()
             sentences = nltk.sent_tokenize(text)
@@ -35,8 +36,8 @@ def index_helper(in_dir: str, out_dict: str, out_postings: str):
                 sum += w**2
                 if word not in postings:
                     postings[word] = []
-                postings[word].append((path.name, w))
-            doc_lens[path.name] = math.sqrt(sum)
+                postings[word].append((doc_id, w))
+            doc_lens[doc_id] = math.sqrt(sum)
 
     with open(out_dict, 'wb') as dict_f, open(out_postings, 'wb') as postings_f:
         pickle.dump(doc_lens, dict_f)
