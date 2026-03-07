@@ -21,13 +21,11 @@ def index_helper(in_dir: str, out_dict: str, out_postings: str):
         
         with path.open('r') as f:
             doc_id = int(path.name)
-            counter: Counter[str] = Counter()
             text = f.read()
             sentences = nltk.sent_tokenize(text)
             words = itertools.chain.from_iterable(map(lambda sentence: nltk.word_tokenize(sentence), sentences))
             tokens = map(lambda word: stemmer.stem(word, to_lowercase=True), words)
-            for token in tokens:
-                counter[token] += 1
+            counter = Counter(tokens)
             
             sum = 0.0
             for word, freq in counter.items():
