@@ -24,6 +24,11 @@ After we have the score for each document (documents which do not share a common
 `src/index_helper.py`: builds `dictionary.txt` and `postings.txt`.<br>
 `src/query.py`: evaluates the query<br>
 
+To build:
+1. `python3 -m venv .venv`
+2. `source .venv/bin/activate`
+3. `pip install -r requirements.txt`
+
 == Statement of individual work ==
 
 Please put a "x" (without the double quotes) into the bracket of the appropriate statement.
