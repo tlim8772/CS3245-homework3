@@ -19,8 +19,7 @@ def get_posting_list(token, offset_dict: dict[str, int], posting_file: IO[bytes]
     posting_file.seek(offset)
     return pickle.load(posting_file)
 
-# no need to find length of query vector, because it is the same for all documents
-# i.e we have query_vector · doc vector.
+# no need to find length of query vector, because it is the same for all documents.
 def eval(query: str, doc_len: dict[int, int], doc_freqs: dict[str, int], offset_dict: dict[str, int], posting_file: IO[bytes]) -> list[int]:
     docN = len(doc_len)
     stemmer = nltk.stem.PorterStemmer()
